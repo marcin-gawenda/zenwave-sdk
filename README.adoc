@@ -5,6 +5,61 @@
 ➜  zenwave-sdk git:(main) ✗ pwd
 /home/marcin/ws-mag/zenwave360/zenwave-sdk
 
-	find . -name pom.xml -exec sed -i.bak 's/1.5.0-SNAPSHOT/1.4.0-MAG-1/g' {} \;
+	find . -name pom.xml -exec sed -i.bak 's/1.4.0/1.4.0-MAG-1/g' {} \;
 ....
-pwd
+
+== https://github.com/ZenWave360/zenwave-sdk/#forking-an-standard-or-custom-plugin[Fork plugin]
+....
+jbang zw -p io.zenwave360.sdk.plugins.ForkPlugin \
+            targetFolder=plugins/mag-openapi-controllers \
+            sourcePluginClassName=io.zenwave360.sdk.plugins.OpenAPIControllersPlugin \
+            targetPluginClassName=io.zenwave360.sdk.plugins.MagOpenAPIControllersPlugin
+
+cd plugins/mag-openapi-controllers
+
+find . -name pom.xml -exec sed -i.bak 's/1.4.0/1.4.0-MAG-1/g' {} \;
+
+....
+
+* Ensure artifact name is
+
+    <artifactId>mag-openapi-controllers</artifactId>
+
+* Add module in `plugins/pom.xml`
+
+        <module>openapi-controllers</module>
+        <module>mag-openapi-controllers</module>
+....
+mvn clean install
+....
+
+== Update jbang zw alias
+....
+jbang alias add --name=zw --verbose \
+-m=io.zenwave360.sdk.Main \
+--repos=mavencentral,mag=file:///home/marcin/.m2/repository \
+--deps=\
+org.slf4j:slf4j-simple:1.7.36,\
+io.github.zenwave360.zenwave-sdk.plugins:asyncapi-spring-cloud-streams3:1.4.0,\
+io.github.zenwave360.zenwave-sdk.plugins:asyncapi-jsonschema2pojo:1.4.0,\
+io.github.zenwave360.zenwave-sdk.plugins:openapi-spring-webtestclient:1.4.0,\
+io.github.zenwave360.zenwave-sdk.plugins:openapi-rest-assured:1.4.0,\
+io.github.zenwave360.zenwave-sdk.plugins:zdl-to-openapi:1.4.0,\
+io.github.zenwave360.zenwave-sdk.plugins:zdl-to-asyncapi:1.4.0,\
+io.github.zenwave360.zenwave-sdk.plugins:jdl-to-asyncapi:1.4.0,\
+io.github.zenwave360.zenwave-sdk.plugins:zdl-to-markdown:1.4.0,\
+io.zenwave360.sdk.plugins:backend-application-eta-plugin:1.4.0-MAG-1,\
+io.zenwave360.sdk.plugins:mag-openapi-controllers:1.4.0-MAG-1 \
+io.github.zenwave360.zenwave-sdk:zenwave-sdk-cli:1.4.0
+....
+
+== Ensure `Mag` plugins are listed
+....
+jbang zw | grep Mag
+
+INFO Reflections - Reflections took 621 ms to scan 56 urls, producing 2393 keys and 11675 values
+openapi-controllers            io.zenwave360.sdk.plugins.MagOpenAPIControllersPlugin: Generates implementations based on ZDL models and OpenAPI definitions SpringMVC generated OpenAPI interfaces. (1.4.0)
+....
+
+
+

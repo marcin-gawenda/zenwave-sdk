@@ -64,6 +64,7 @@
         <module>backend-application-default</module>
         <module>backend-application-eta</module>
         <module>openapi-controllers</module>
+        <module>mag-openapi-controllers</module>
         <module>openapi-spring-webtestclient</module>
         <module>openapi-rest-assured</module>
 <!--        <module>openapi-pact-consumer</module>-->

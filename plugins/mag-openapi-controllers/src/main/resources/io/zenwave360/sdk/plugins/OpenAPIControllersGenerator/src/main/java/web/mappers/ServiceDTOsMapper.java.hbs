@@ -1,0 +1,38 @@
+package {{controllersPackage}}.mappers;
+
+import {{entitiesPackage}}.*;
+import {{inboundDtosPackage}}.*;
+import {{openApiModelPackage}}.*;
+
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+import java.util.List;
+import org.springframework.data.domain.Page;
+
+@Mapper(uses = BaseMapper.class)
+public interface {{serviceName}}DTOsMapper {
+
+    {{serviceName}}DTOsMapper INSTANCE = Mappers.getMapper({{serviceName}}DTOsMapper.class);
+
+    // request mappings
+{{~#each mapperRequestDtoEntity as |entry|}}
+    {{inputType}} as{{inputType}}({{requestDto}} dto);
+{{~/each}}
+
+    // response mappings
+{{~#each mapperResponseDtoEntity as |entry|}}
+    {{#if isResponsePaginated}}
+    List<{{responseDto}}> as{{responseDto}}List(List<{{outputType}}> entityList);
+    {{responseEntityName}} as{{responseEntityName}}(Page<{{outputType}}> page);
+    default Page<{{responseDto}}> as{{responseDto}}Page(Page<{{outputType}}> page) {
+      return page.map(this::as{{responseDto}});
+    }
+    {{~else if isResponseArray}}
+    List<{{responseDto}}> as{{responseDto}}List(List<{{outputType}}> entityList);
+    {{~else}}
+    {{responseDto}} as{{responseDto}}({{outputType}} entity);
+    {{/if}}
+{{~/each}}
+
+
+}
