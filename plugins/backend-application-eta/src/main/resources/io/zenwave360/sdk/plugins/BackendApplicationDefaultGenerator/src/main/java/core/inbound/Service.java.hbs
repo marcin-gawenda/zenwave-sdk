@@ -1,0 +1,20 @@
+package {{basePackage}}.core.inbound;
+
+import {{basePackage}}.core.domain.*;
+import {{basePackage}}.core.inbound.dtos.*;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+/**
+ * Inbound Service Port for managing {{service.entityNames}}.
+ */
+public interface {{service.name}} {
+
+{{#each service.methods as |method|}}
+    {{~> (partial '../implementation/partials/serviceMethodJavadoc')}}
+    {{~> (partial '../implementation/partials/serviceMethodSignature')}};
+{{/each}}
+
+}

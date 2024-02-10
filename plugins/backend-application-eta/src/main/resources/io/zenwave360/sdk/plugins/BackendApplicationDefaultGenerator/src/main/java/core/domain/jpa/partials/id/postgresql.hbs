@@ -1,0 +1,9 @@
+    @Id
+{{#if useTsid}}
+    @Tsid
+{{else}}
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
+{{/if}}
+    @Column(name = "id")
+

@@ -1,0 +1,68 @@
+package {{basePackage}}.core.implementation;
+
+import {{entitiesPackage}}.*;
+import {{inboundPackage}}.*;
+import {{inboundDtosPackage}}.*;
+import {{coreImplementationPackage}}.mappers.*;
+import {{outboundPackage}}.mongodb.*;
+{{#if includeEmitEventsImplementation}}
+import {{outboundEventsPackage}}.*;
+{{/if}}
+
+import java.util.List;
+import java.util.Optional;
+import org.mapstruct.factory.Mappers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * Service Implementation for managing {{service.entityNames}}.
+ */
+@Service
+@Transactional(readOnly = true)
+{{~#if useLombok}}
+@lombok.AllArgsConstructor
+{{~/if}}
+public class {{service.name}}Impl implements {{service.name}} {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
+    private final {{service.name}}Mapper {{asInstanceName service.name}}Mapper = {{service.name}}Mapper.INSTANCE;
+
+{{#each entities as |entity|}}
+    {{~#unless (skipEntityRepository this)}}
+    private final {{entity.className}}Repository {{entity.instanceName}}Repository;
+    {{~/unless}}
+{{/each}}
+
+{{#if (includeEmitEventsImplementation service)}}
+    private final EventsMapper eventsMapper = EventsMapper.INSTANCE;
+    private final {{eventsProducerInterface service.name}} eventsProducer;
+{{/if}}
+
+{{#unless useLombok~}}
+    /**
+     * Constructor.
+     */
+    public {{service.name}}Impl({{#joinWithTemplate service.entities delimiter=", "}}{{#unless (skipEntityRepository this)}}{{className}}Repository {{instanceName}}Repository{{/unless}}{{/joinWithTemplate}}
+                                {{#if (includeEmitEventsImplementation service)}}, {{eventsProducerInterface service.name}} eventsProducer{{/if}}) {
+        {{~#joinWithTemplate service.entities ~}}
+            {{#unless (skipEntityRepository this)}}this.{{instanceName}}Repository = {{instanceName}}Repository;{{/unless}}
+        {{~/joinWithTemplate~}}
+        {{~#if (includeEmitEventsImplementation service)}}
+        this.eventsProducer = eventsProducer;
+        {{~/if}}
+    }
+{{/unless~}}
+
+{{#each service.methods as |method|}}
+    {{~> (partial '../../partials/mongodbMethodAnnotations')~}}
+    {{~> (partial '../../partials/serviceMethodSignature')}} {
+        {{~> (partial '../../partials/mongodbMethodBody')~}}
+    }
+{{/each}}
+}
