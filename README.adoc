@@ -1,0 +1,10 @@
+= MAG
+
+
+....
+➜  zenwave-sdk git:(main) ✗ pwd
+/home/marcin/ws-mag/zenwave360/zenwave-sdk
+
+	find . -name pom.xml -exec sed -i.bak 's/1.5.0-SNAPSHOT/1.4.0-MAG-1/g' {} \;
+....
+pwd
