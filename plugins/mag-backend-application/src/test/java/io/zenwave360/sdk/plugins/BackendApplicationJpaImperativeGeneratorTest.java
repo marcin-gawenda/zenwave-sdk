@@ -36,7 +36,7 @@ public class BackendApplicationJpaImperativeGeneratorTest {
     @Test
     public void test_generator_hexagonal_jpa() throws Exception {
         String targetFolder = "target/zdl/test_generator_hexagonal_jpa_customer_address";
-        Plugin plugin = new BackendApplicationEtaPlugin()
+        Plugin plugin = new MagBackendApplicationPlugin()
                 .withSpecFile("classpath:io/zenwave360/sdk/resources/zdl/customer-address-relational.zdl")
                 .withTargetFolder(targetFolder)
                 .withOption("basePackage", "io.zenwave360.example")

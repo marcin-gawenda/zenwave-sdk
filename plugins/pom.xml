@@ -62,11 +62,11 @@
         <module>asyncapi-spring-cloud-streams3</module>
         <module>asyncapi-jsonschema2pojo</module>
         <module>backend-application-default</module>
-        <module>backend-application-eta</module>
         <module>openapi-controllers</module>
-        <module>mag-openapi-controllers</module>
         <module>openapi-spring-webtestclient</module>
         <module>openapi-rest-assured</module>
+        <module>mag-backend-application</module>
+        <module>mag-openapi-controllers</module>
 <!--        <module>openapi-pact-consumer</module>-->
     </modules>
 </project>

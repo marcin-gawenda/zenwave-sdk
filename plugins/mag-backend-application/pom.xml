@@ -9,7 +9,6 @@
     <name>${project.groupId}:${project.artifactId}</name>
     <version>1.4.0-MAG-1</version>
     <groupId>io.zenwave360.sdk.plugins</groupId>
-    <artifactId>backend-application-eta-plugin</artifactId>
+    <artifactId>mag-backend-application</artifactId>
     <packaging>jar</packaging>
-
 </project>

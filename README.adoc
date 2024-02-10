@@ -48,17 +48,17 @@ io.github.zenwave360.zenwave-sdk.plugins:zdl-to-openapi:1.4.0,\
 io.github.zenwave360.zenwave-sdk.plugins:zdl-to-asyncapi:1.4.0,\
 io.github.zenwave360.zenwave-sdk.plugins:jdl-to-asyncapi:1.4.0,\
 io.github.zenwave360.zenwave-sdk.plugins:zdl-to-markdown:1.4.0,\
-io.zenwave360.sdk.plugins:backend-application-eta-plugin:1.4.0-MAG-1,\
+io.zenwave360.sdk.plugins:mag-backend-application:1.4.0-MAG-1,\
 io.zenwave360.sdk.plugins:mag-openapi-controllers:1.4.0-MAG-1 \
 io.github.zenwave360.zenwave-sdk:zenwave-sdk-cli:1.4.0
 ....
 
 == Ensure `Mag` plugins are listed
 ....
-jbang zw | grep Mag
+jbang zw | grep -i Mag
 
-INFO Reflections - Reflections took 621 ms to scan 56 urls, producing 2393 keys and 11675 values
-openapi-controllers            io.zenwave360.sdk.plugins.MagOpenAPIControllersPlugin: Generates implementations based on ZDL models and OpenAPI definitions SpringMVC generated OpenAPI interfaces. (1.4.0)
+mag-openapi-controllers        io.zenwave360.sdk.plugins.MagOpenAPIControllersPlugin: Generates implementations based on ZDL models and OpenAPI definitions SpringMVC generated OpenAPI interfaces. (1.4.0)
+mag-backend-application        io.zenwave360.sdk.plugins.MagBackendApplicationPlugin: Generates a full backend application using a flexible hexagonal architecture (1.4.0)
 ....
 
 

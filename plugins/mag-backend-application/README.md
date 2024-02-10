@@ -28,5 +28,5 @@ Visit https://zenwave360.github.io/docs/zenwave-sdk/backend-application for comp
 ## Getting Help
 
 ```shell
-jbang zw -p io.zenwave360.sdk.plugins.BackendApplicationEtaPlugin --help
+jbang zw -p io.zenwave360.sdk.plugins.MagBackendApplicationPlugin --help
 ```

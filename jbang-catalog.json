@@ -87,7 +87,7 @@
         "io.github.zenwave360.zenwave-sdk.plugins:zdl-to-asyncapi:1.4.0",
         "io.github.zenwave360.zenwave-sdk.plugins:jdl-to-asyncapi:1.4.0",
         "io.github.zenwave360.zenwave-sdk.plugins:zdl-to-markdown:1.4.0",
-        "io.zenwave360.sdk.plugins:backend-application-eta-plugin:1.4.0-MAG-1",
+        "io.zenwave360.sdk.plugins:mag-backend-application:1.4.0-MAG-1",
         "io.zenwave360.sdk.plugins:mag-openapi-controllers:1.4.0-MAG-1"
       ],
       "repositories": [
