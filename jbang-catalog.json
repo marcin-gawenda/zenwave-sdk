@@ -76,19 +76,19 @@
       "main": "io.zenwave360.sdk.Main"
     },
     "zw": {
-      "script-ref": "io.github.zenwave360.zenwave-sdk:zenwave-sdk-cli:1.4.0",
+      "script-ref": "io.github.zenwave360.zenwave-sdk:zenwave-sdk-cli:1.4.2",
       "dependencies": [
         "org.slf4j:slf4j-simple:1.7.36",
-        "io.github.zenwave360.zenwave-sdk.plugins:asyncapi-spring-cloud-streams3:1.4.0",
-        "io.github.zenwave360.zenwave-sdk.plugins:asyncapi-jsonschema2pojo:1.4.0",
-        "io.github.zenwave360.zenwave-sdk.plugins:openapi-spring-webtestclient:1.4.0",
-        "io.github.zenwave360.zenwave-sdk.plugins:openapi-rest-assured:1.4.0",
-        "io.github.zenwave360.zenwave-sdk.plugins:zdl-to-openapi:1.4.0",
-        "io.github.zenwave360.zenwave-sdk.plugins:zdl-to-asyncapi:1.4.0",
-        "io.github.zenwave360.zenwave-sdk.plugins:jdl-to-asyncapi:1.4.0",
-        "io.github.zenwave360.zenwave-sdk.plugins:zdl-to-markdown:1.4.0",
-        "io.zenwave360.sdk.plugins:mag-backend-application:1.4.0-MAG-1",
-        "io.zenwave360.sdk.plugins:mag-openapi-controllers:1.4.0-MAG-1"
+        "io.github.zenwave360.zenwave-sdk.plugins:asyncapi-spring-cloud-streams3:1.4.2",
+        "io.github.zenwave360.zenwave-sdk.plugins:asyncapi-jsonschema2pojo:1.4.2",
+        "io.github.zenwave360.zenwave-sdk.plugins:openapi-spring-webtestclient:1.4.2",
+        "io.github.zenwave360.zenwave-sdk.plugins:openapi-rest-assured:1.4.2",
+        "io.github.zenwave360.zenwave-sdk.plugins:zdl-to-openapi:1.4.2",
+        "io.github.zenwave360.zenwave-sdk.plugins:zdl-to-asyncapi:1.4.2",
+        "io.github.zenwave360.zenwave-sdk.plugins:jdl-to-asyncapi:1.4.2",
+        "io.github.zenwave360.zenwave-sdk.plugins:zdl-to-markdown:1.4.2",
+        "io.zenwave360.sdk.plugins:mag-backend-application:1.4.2-MAG-1",
+        "io.zenwave360.sdk.plugins:mag-openapi-controllers:1.4.2-MAG-1"
       ],
       "repositories": [
         "mavencentral",

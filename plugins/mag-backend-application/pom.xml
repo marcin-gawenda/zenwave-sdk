@@ -4,10 +4,10 @@
     <parent>
         <groupId>io.github.zenwave360.zenwave-sdk</groupId>
         <artifactId>plugins-parent</artifactId>
-        <version>1.4.0-MAG-1</version>
+        <version>1.4.2-MAG-1</version>
     </parent>
     <name>${project.groupId}:${project.artifactId}</name>
-    <version>1.4.0-MAG-1</version>
+    <version>1.4.2-MAG-1</version>
     <groupId>io.zenwave360.sdk.plugins</groupId>
     <artifactId>mag-backend-application</artifactId>
     <packaging>jar</packaging>

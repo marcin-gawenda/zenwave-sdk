@@ -7,6 +7,9 @@ import io.zenwave360.sdk.parsers.ZDLParser;
 import io.zenwave360.sdk.processors.ZDLProcessor;
 import io.zenwave360.sdk.writers.TemplateFileWriter;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * This is the long description
  */
@@ -25,5 +28,4 @@ public class MagBackendApplicationPlugin extends Plugin {
         }
         return (T) this;
     }
-
 }

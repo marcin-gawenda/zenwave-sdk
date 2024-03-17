@@ -10,6 +10,11 @@ import io.zenwave360.sdk.doc.DocumentedPlugin;
 import io.zenwave360.sdk.formatters.JavaFormatter;
 import io.zenwave360.sdk.parsers.DefaultYamlParser;
 import io.zenwave360.sdk.writers.TemplateFileWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * After you have generated SpringMVC interfaces and DTOs with OpenAPI generator, you can use this command to generate implementations (skeletons) and mappers for those interfaces and dtos:
@@ -28,6 +33,7 @@ import io.zenwave360.sdk.writers.TemplateFileWriter;
 @DocumentedPlugin(value = "Generates implementations based on ZDL models and OpenAPI definitions SpringMVC generated OpenAPI interfaces.", shortCode = "mag-openapi-controllers")
 public class MagOpenAPIControllersPlugin extends Plugin {
 
+    private Logger log = LoggerFactory.getLogger(getClass());
     @DocumentedOption(description = "ZDL file to parse", required = false)
     public String zdlFile;
 
@@ -48,6 +54,25 @@ public class MagOpenAPIControllersPlugin extends Plugin {
         // we use class name for passing the properties, in case one class is repeated in chain we'd use the index number in the chain
         withOption("DefaultYamlParser.specFile", StringUtils.firstNonBlank(this.getSpecFile(), (String) getOptions().get("openapiFile")));
         withOption("ZDLParser.specFile", getOptions().get("zdlFile"));
+
+        log.debug("useDelegate: '{}'", getOptions().get("useDelegate"));
+//        withOption("useDelegate", getOptions().getOrDefault("useDelegate", false));
+
+        log.debug("zdlFile: '{}'", zdlFile);
+        withOption("modelName", getOptions().getOrDefault("modelName", extractModelName(zdlFile)));
+        log.debug("modelName: '{}'", getOptions().get("modelName"));
+
         return (T) this;
+    }
+
+    private static String extractModelName(String zdlFile) {
+        Pattern pattern = Pattern.compile("/([^/]+)\\.zdl$");
+        Matcher matcher = pattern.matcher(zdlFile);
+
+        if (matcher.find()) {
+            return matcher.group(1);
+        } else {
+            return "";
+        }
     }
 }

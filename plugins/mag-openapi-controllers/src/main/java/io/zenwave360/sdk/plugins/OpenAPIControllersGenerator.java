@@ -1,3 +1,4 @@
+// Customized by Mag
 package io.zenwave360.sdk.plugins;
 
 import static io.zenwave360.sdk.templating.OutputFormatType.JAVA;
@@ -55,7 +56,10 @@ public class OpenAPIControllersGenerator extends AbstractOpenAPIGenerator {
     public List<String> paginatedDtoItemsJsonPath = List.of("$.items", "$.properties.content.items");
 
     @DocumentedOption(description = "Use Delegate pattern TODO: Mag")
-    public boolean useDelegate = true;
+    public boolean useDelegate = false;
+
+    @DocumentedOption(description = "Used to prefix Mapper name to avoid impl. bean conflict issue")
+    public String modelName;
 
     protected HandlebarsEngine handlebarsEngine = new HandlebarsEngine();
 
@@ -63,11 +67,12 @@ public class OpenAPIControllersGenerator extends AbstractOpenAPIGenerator {
 
     List<Object[]> templates = List.of(
             new Object[] {"src/main/java", "web/mappers/BaseMapper.java", "mappers/BaseMapper.java", JAVA},
-            new Object[] {"src/main/java", "web/mappers/ServiceDTOsMapper.java", "mappers/{{serviceName}}DTOsMapper.java", JAVA},
-            new Object[] {"src/main/java", "web/{{webFlavor}}/ServiceApiController.java", "{{serviceName}}Api"
-                    + (useDelegate ? "DelegateImpl.java" : "Controller.java"), JAVA},
-            new Object[] {"src/test/java", "web/{{webFlavor}}/ServiceApiControllerTest.java", "{{serviceName}}Api"
-                    + (useDelegate ? "DelegateImplTest.java" :"ControllerTest.java"), JAVA});
+            new Object[] {"src/main/java", "web/mappers/ServiceDTOsMapper.java", "mappers/{{serviceName}}DTOsMapper.java", JAVA}
+//            new Object[] {"src/main/java", "web/{{webFlavor}}/ServiceApiController.java", "{{serviceName}}Api"
+//                    + (useDelegate ? "DelegateImpl.java" : "Controller.java"), JAVA},
+//            new Object[] {"src/test/java", "web/{{webFlavor}}/ServiceApiControllerTest.java", "{{serviceName}}Api"
+//                    + (useDelegate ? "DelegateImplTest.java" :"ControllerTest.java"), JAVA}
+    );
 
     public TemplateEngine getTemplateEngine() {
         return handlebarsEngine;
@@ -173,6 +178,16 @@ public class OpenAPIControllersGenerator extends AbstractOpenAPIGenerator {
                     "entitiesServices", entitiesServices);
 
             for (Object[] template : templates) {
+                templateOutputList.addAll(generateTemplateOutput(contextModel, asTemplateInput(template), serviceModel));
+            }
+            // intentionally here, due to 'useDelegate'
+            List<Object[]> templates2 = List.of(
+                    new Object[] {"src/main/java", "web/{{webFlavor}}/ServiceApiController.java", "{{serviceName}}Api"
+                            + (useDelegate ? "DelegateImpl.java" : "Controller.java"), JAVA},
+                    new Object[] {"src/test/java", "web/{{webFlavor}}/ServiceApiControllerTest.java", "{{serviceName}}Api"
+                            + (useDelegate ? "DelegateImplTest.java" :"ControllerTest.java"), JAVA}
+            );
+            for (Object[] template : templates2) {
                 templateOutputList.addAll(generateTemplateOutput(contextModel, asTemplateInput(template), serviceModel));
             }
         }

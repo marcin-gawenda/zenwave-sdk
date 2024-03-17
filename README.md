@@ -1,5 +1,7 @@
 # ZenWave SDK
 
+## See README.adoc
+
 <p align="center"  markdown="1">
   <img src="docs/logos/code-generator-logo-dark.svg#gh-dark-mode-only" alt="ZW> Code Generator" />
   <img src="docs/logos/code-generator-logo-light.svg#gh-light-mode-only" alt="ZW> Code Generator" />

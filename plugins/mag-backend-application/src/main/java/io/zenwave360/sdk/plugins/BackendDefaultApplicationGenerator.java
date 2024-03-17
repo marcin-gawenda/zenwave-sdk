@@ -77,6 +77,8 @@ public class BackendDefaultApplicationGenerator extends AbstractZDLProjectGenera
     @DocumentedOption(description = "Use TSID TODO: Mag")
     public boolean useTsid = true;
 
+    @DocumentedOption(description = "Used to prefix Mapper name to avoid impl. bean conflict issue")
+    public String modelName = "";
 
     @DocumentedOption(description = "Whether to add IEntityEventProducer interfaces as service dependencies. Depends on the naming convention of zenwave-asyncapi plugin to work.")
     public boolean includeEmitEventsImplementation = false;
@@ -96,7 +98,7 @@ public class BackendDefaultApplicationGenerator extends AbstractZDLProjectGenera
     }
 
     protected Function<Map<String, Object>, Boolean> skipEntityRepository = (model) -> !is(model, "aggregate");
-    protected Function<Map<String, Object>, Boolean> skipEntityId = (model) -> is(model, "embedded", "vo", "input", "isSuperClass");
+    protected Function<Map<String, Object>, Boolean> skipEntityId = (model) -> is(model, "embedded", "vo", "input", "abstract");
     protected Function<Map<String, Object>, Boolean> skipEntity = (model) -> is(model, "vo", "input");
     protected Function<Map<String, Object>, Boolean> skipEntityInput = (model) -> inputDTOSuffix == null || inputDTOSuffix.isEmpty();
 

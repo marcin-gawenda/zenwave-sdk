@@ -1,14 +1,22 @@
 = MAG
 
-
+== Based on v1.4.2
+https://github.com/ZenWave360/zenwave-sdk
 ....
-➜  zenwave-sdk git:(main) ✗ pwd
+> pwd
 /home/marcin/ws-mag/zenwave360/zenwave-sdk
 
-	find . -name pom.xml -exec sed -i.bak 's/1.4.0/1.4.0-MAG-1/g' {} \;
+> jenv shell 17
+
+> export ZW_VERSION="1.4.2"; echo "ZW_VERSION: ${ZW_VERSION}";
+
+> find . -name pom.xml -exec sed -i.bak 's/1.4.0-MAG-1/${ZW_VERSION}-MAG-1/g' {} \;
 ....
 
-== https://github.com/ZenWave360/zenwave-sdk/#forking-an-standard-or-custom-plugin[Fork plugin]
+== Fork plugin
+https://github.com/ZenWave360/zenwave-sdk/#forking-an-standard-or-custom-plugin[Fork plugin]
+
+* Example
 ....
 jbang zw -p io.zenwave360.sdk.plugins.ForkPlugin \
             targetFolder=plugins/mag-openapi-controllers \
@@ -16,10 +24,9 @@ jbang zw -p io.zenwave360.sdk.plugins.ForkPlugin \
             targetPluginClassName=io.zenwave360.sdk.plugins.MagOpenAPIControllersPlugin
 
 cd plugins/mag-openapi-controllers
-
-find . -name pom.xml -exec sed -i.bak 's/1.4.0/1.4.0-MAG-1/g' {} \;
-
 ....
+
+* Put comment in the first line "// Customized by Mag" of modified files
 
 * Ensure artifact name is
 
@@ -35,31 +42,33 @@ mvn clean install
 
 == Update jbang zw alias
 ....
-jbang alias add --name=zw --verbose \
+> export ZW_VERSION="1.4.2"; echo "ZW_VERSION: ${ZW_VERSION}";
+
+> jbang alias add --name=zw --verbose --force \
 -m=io.zenwave360.sdk.Main \
 --repos=mavencentral,mag=file:///home/marcin/.m2/repository \
 --deps=\
 org.slf4j:slf4j-simple:1.7.36,\
-io.github.zenwave360.zenwave-sdk.plugins:asyncapi-spring-cloud-streams3:1.4.0,\
-io.github.zenwave360.zenwave-sdk.plugins:asyncapi-jsonschema2pojo:1.4.0,\
-io.github.zenwave360.zenwave-sdk.plugins:openapi-spring-webtestclient:1.4.0,\
-io.github.zenwave360.zenwave-sdk.plugins:openapi-rest-assured:1.4.0,\
-io.github.zenwave360.zenwave-sdk.plugins:zdl-to-openapi:1.4.0,\
-io.github.zenwave360.zenwave-sdk.plugins:zdl-to-asyncapi:1.4.0,\
-io.github.zenwave360.zenwave-sdk.plugins:jdl-to-asyncapi:1.4.0,\
-io.github.zenwave360.zenwave-sdk.plugins:zdl-to-markdown:1.4.0,\
-io.zenwave360.sdk.plugins:mag-backend-application:1.4.0-MAG-1,\
-io.zenwave360.sdk.plugins:mag-openapi-controllers:1.4.0-MAG-1 \
-io.github.zenwave360.zenwave-sdk:zenwave-sdk-cli:1.4.0
+io.github.zenwave360.zenwave-sdk.plugins:asyncapi-spring-cloud-streams3:${ZW_VERSION},\
+io.github.zenwave360.zenwave-sdk.plugins:asyncapi-jsonschema2pojo:${ZW_VERSION},\
+io.github.zenwave360.zenwave-sdk.plugins:openapi-spring-webtestclient:${ZW_VERSION},\
+io.github.zenwave360.zenwave-sdk.plugins:openapi-rest-assured:${ZW_VERSION},\
+io.github.zenwave360.zenwave-sdk.plugins:zdl-to-openapi:${ZW_VERSION},\
+io.github.zenwave360.zenwave-sdk.plugins:zdl-to-asyncapi:${ZW_VERSION},\
+io.github.zenwave360.zenwave-sdk.plugins:jdl-to-asyncapi:${ZW_VERSION},\
+io.github.zenwave360.zenwave-sdk.plugins:zdl-to-markdown:${ZW_VERSION},\
+io.zenwave360.sdk.plugins:mag-backend-application:${ZW_VERSION}-MAG-1,\
+io.zenwave360.sdk.plugins:mag-openapi-controllers:${ZW_VERSION}-MAG-1 \
+io.github.zenwave360.zenwave-sdk:zenwave-sdk-cli:${ZW_VERSION}
 ....
 
 == Ensure `Mag` plugins are listed
 ....
-jbang zw | grep -i Mag
+> jbang zw | grep Mag
 
-mag-openapi-controllers        io.zenwave360.sdk.plugins.MagOpenAPIControllersPlugin: Generates implementations based on ZDL models and OpenAPI definitions SpringMVC generated OpenAPI interfaces. (1.4.0)
-mag-backend-application        io.zenwave360.sdk.plugins.MagBackendApplicationPlugin: Generates a full backend application using a flexible hexagonal architecture (1.4.0)
+INFO Reflections - Reflections took 582 ms to scan 56 urls, producing 2386 keys and 11590 values
+mag-openapi-controllers        io.zenwave360.sdk.plugins.MagOpenAPIControllersPlugin: Generates implementations based on ZDL models and OpenAPI definitions SpringMVC generated OpenAPI interfaces. (1.4.2)
+mag-backend-application        io.zenwave360.sdk.plugins.MagBackendApplicationPlugin: Generates a full backend application using a flexible hexagonal architecture (1.4.2)
 ....
-
 
 

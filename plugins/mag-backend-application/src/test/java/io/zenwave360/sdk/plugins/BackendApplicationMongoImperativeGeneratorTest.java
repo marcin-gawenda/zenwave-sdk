@@ -1,3 +1,4 @@
+// Customized by Mag
 package io.zenwave360.sdk.plugins;
 
 import java.util.List;
